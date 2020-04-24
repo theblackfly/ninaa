@@ -1,0 +1,69 @@
+% if header:
+%% ${header}
+% endif
+% if png:
+\documentclass[preview,border=4mm,convert={density=500,outext=.png}]{standalone} 
+% else:
+\documentclass[border=4mm]{standalone}
+% endif
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes.misc}
+
+\definecolor{viridisgreen}{rgb}{0.369214, 0.788888, 0.382914}
+\definecolor{viridisblue}{rgb}{0.127568, 0.566949, 0.550556}
+\definecolor{viridispurple}{rgb}{0.229739, 0.322361, 0.545706}
+
+\begin{document}
+\begin{tikzpicture}
+  ## neuron style
+  % if stroke:
+  \tikzstyle{roundsty} = [circle, draw, minimum size=22]
+  % else:
+  \tikzstyle{roundsty} = [circle, minimum size=22]
+  % endif
+  \tikzstyle{nsty} = [roundsty, fill=${neuron_color}!100, line width=0.5, inner sep=0pt]
+
+  ## semi-invisible neuron style
+  \tikzstyle{seminvnsty} = [nsty, fill=orange!20]
+
+  ## crossed out style
+  \tikzset{cross/.style={cross out, draw=black!100, minimum size=14, thick}}
+  \tikzstyle{crnsty} = [cross, draw=red!100, densely dotted]
+
+  ## connection style
+  \tikzstyle{connsty} = [arrows=-{Triangle[length=3, width=3]}, color=black!100, inner sep=0pt]
+
+  ## draw neurons
+  % for i, id in enumerate(inneurons):
+  \node[nsty] (${id}) at ( 0, ${i}) {};
+  % endfor
+  % for i, id in enumerate(h1neurons):
+  \node[nsty] (${id}) at ( 2.5, ${i}) {};
+  % endfor
+  % for i, id in enumerate(h2neurons):
+  \node[nsty] (${id}) at ( 5, ${i}) {};
+  % endfor
+  % for i, id in enumerate(outneurons):
+  \node[nsty] (${id}) at ( 7.5, ${i}) {};
+  % endfor
+
+  ## draw dense connections
+  % for fromid in inneurons:
+    % for toid in h1neurons:
+  \path (${fromid}) edge[connsty] (${toid});
+    % endfor
+  % endfor
+  % for fromid in h1neurons:
+    % for toid in h2neurons:
+  \path (${fromid}) edge[connsty] (${toid});
+    % endfor
+  % endfor
+  % for fromid in h2neurons:
+    % for toid in outneurons:
+  \path (${fromid}) edge[connsty] (${toid});
+    % endfor
+  % endfor
+
+\end{tikzpicture}
+\end{document}
