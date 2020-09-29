@@ -22,11 +22,25 @@ Here are some mandatory screenshots.
 
 ![Screenshot 1](https://raw.githubusercontent.com/theblackfly/ninaa/master/screenshots/1.png)
 ![Screenshot 2](https://raw.githubusercontent.com/theblackfly/ninaa/master/screenshots/2.png)
+![Screenshot 2](https://raw.githubusercontent.com/theblackfly/ninaa/master/screenshots/siamese-gmlvq.png)
 
-## Usage
+## How to use?
 
 Running the `example.py` script will generate the tikzpicture as a standalone
-`out.tex` document.
+tex document named `out.tex`.
+
+You can add the standalone document directly into your main tex file by using
+the `\includestandalone[]{}` command.
+
+```tex
+\documentclass{article}
+\usepackage[mode=buildnew]{standalone} % requires -shell-escape
+\begin{document}
+\includestandalone[width=.8\textwidth]{out}
+\end{document}
+```
+
+## PNG image instead of PDF
 
 To get the picture in `png` format, run
 ```bash

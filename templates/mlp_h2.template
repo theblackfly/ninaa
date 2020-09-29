@@ -2,7 +2,7 @@
 %% ${header}
 % endif
 % if png:
-\documentclass[preview,border=4mm,convert={density=500,outext=.png}]{standalone} 
+\documentclass[preview,border=4mm,convert={density=500,outext=.png}]{standalone}
 % else:
 \documentclass[border=4mm]{standalone}
 % endif
@@ -36,16 +36,16 @@
 
   ## draw neurons
   % for i, id in enumerate(inneurons):
-  \node[nsty] (${id}) at ( 0, ${i}) {};
+  \node[nsty] (${id}) at (0, ${i}) {};
   % endfor
   % for i, id in enumerate(h1neurons):
-  \node[nsty] (${id}) at ( 2.5, ${i}) {};
+  \node[nsty] (${id}) at (2.5, ${i}) {};
   % endfor
   % for i, id in enumerate(h2neurons):
-  \node[nsty] (${id}) at ( 5, ${i}) {};
+  \node[nsty] (${id}) at (5, ${i}) {};
   % endfor
   % for i, id in enumerate(outneurons):
-  \node[nsty] (${id}) at ( 7.5, ${i}) {};
+  \node[nsty] (${id}) at (7.5, ${i}) {};
   % endfor
 
   ## draw dense connections

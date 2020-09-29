@@ -1,0 +1,71 @@
+% if header:
+%% ${header}
+% endif
+% if png:
+\documentclass[preview,border=4mm,convert={density=500,outext=.png}]{standalone}
+% else:
+\documentclass[border=4mm]{standalone}
+% endif
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes.misc}
+
+\begin{document}
+\begin{tikzpicture}[bend angle=18]
+  ## define styles
+  \tikzstyle{annot} = [minimum size=0, color=${input_color}!100, align=center, scale=${input_scale}, text width=${text_width}]
+  \tikzstyle{block} = [draw, rectangle, minimum size=20, fill=white!100, line width=0.5]
+  \tikzstyle{conn} = [arrows=-{Triangle[length=6, width=2]}, color=black!100, inner sep=0pt, line width=0.5pt]
+
+  ## draw blocks
+  \node[annot] (in0) at (0, 0) {${input_1}};
+  \node[annot] (in1) at (0, 4) {${input_2}};
+
+  \node[block] (cv0) [right=of in0] {${shared_block}};
+  \node[block] (cv1) [right=of in1] {${shared_block}};
+
+  % if fc:
+  \node[block] (sw) [above=of cv0, xshift=10mm, yshift=3mm] {\verb!Shared Weights!};
+  % else:
+  \node[block] (sw) [above=of cv0, yshift=3mm] {\verb!Shared Weights!};
+  % endif
+
+  % if fc:
+  \node[block] (fc0) [right=of cv0] {\verb!FC!};
+  \node[block] (fc1) [right=of cv1] {\verb!FC!};
+  % endif
+
+  % if fc:
+  \node[block] (diss) [right=of fc0, yshift=20mm] {${dissimilarity}};
+  % else:
+  \node[block] (diss) [right=of cv0, xshift=10mm, yshift=20mm] {${dissimilarity}};
+  % endif
+
+  \node[block] (loss) [right=of diss, yshift=0mm] {\verb!${loss}!};
+
+  ## draw connections
+  \path (in0) edge[conn] (cv0);
+  \path (in1) edge[conn] (cv1);
+
+  % if fc:
+  \path (sw) edge[conn] (fc0);
+  \path (sw) edge[conn] (fc1);
+  \path (fc0) edge[conn, bend right] (diss);
+  \path (fc1) edge[conn, bend left] (diss);
+  % endif
+
+  % if fc:
+  \path (cv0) edge[conn] (fc0);
+  \path (cv1) edge[conn] (fc1);
+  % else:
+  \path (cv0) edge[conn, bend right] (diss);
+  \path (cv1) edge[conn, bend left] (diss);
+  % endif
+
+  \path (sw) edge[conn] (cv0);
+  \path (sw) edge[conn] (cv1);
+  \path (diss) edge[conn] (loss);
+
+\end{tikzpicture}
+\end{document}
