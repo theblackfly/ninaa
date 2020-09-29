@@ -22,7 +22,7 @@ Here are some mandatory screenshots.
 
 ![Screenshot 1](https://raw.githubusercontent.com/theblackfly/ninaa/master/screenshots/1.png)
 ![Screenshot 2](https://raw.githubusercontent.com/theblackfly/ninaa/master/screenshots/2.png)
-![Screenshot 2](https://raw.githubusercontent.com/theblackfly/ninaa/master/screenshots/siamese-gmlvq.png)
+![Siamese GMLVQ illustration](https://raw.githubusercontent.com/theblackfly/ninaa/master/screenshots/siamese-gmlvq.png)
 
 ## How to use?
 
